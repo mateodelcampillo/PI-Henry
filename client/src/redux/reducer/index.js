@@ -1,10 +1,11 @@
-import { GET_ALL_GAMES, GET_SEARCH_GAMES, GET_SORT_GAMES } from "../actions"
+import { GET_ALL_GAMES, GET_GAME_DETAIL, GET_SEARCH_GAMES, GET_SORT_GAMES } from "../actions"
 
 const initialState = {
     gamesView: [],
     cienGames: [],
     searchGame: [],
-    sortGames: []
+    sortGames: [],
+    gameDetail: []
 }
 const rootReducer = (state = initialState, action) => {
     switch(
@@ -28,6 +29,12 @@ const rootReducer = (state = initialState, action) => {
             return{
                 ...state,
                 gamesView: action.payload
+            }
+        }
+        case GET_GAME_DETAIL:{
+            return{
+                ...state,
+                gameDetail: action.payload
             }
         }
 
