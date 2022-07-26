@@ -1,11 +1,12 @@
-import { GET_ALL_GAMES, GET_GAME_DETAIL, GET_SEARCH_GAMES, GET_SORT_GAMES } from "../actions"
+import { CREATE_GAME, GET_ALL_GAMES, GET_ALL_GENRES, GET_GAME_DETAIL, GET_SEARCH_GAMES, GET_SORT_GAMES } from "../actions"
 
 const initialState = {
     gamesView: [],
     cienGames: [],
     searchGame: [],
     sortGames: [],
-    gameDetail: []
+    gameDetail: [],
+    allGenres: []
 }
 const rootReducer = (state = initialState, action) => {
     switch(
@@ -37,9 +38,18 @@ const rootReducer = (state = initialState, action) => {
                 gameDetail: action.payload
             }
         }
-
+        case GET_ALL_GENRES:{
+            return{
+                ...state,
+                allGenres: action.payload
+            }
+        }
+        case CREATE_GAME: {
+            alert("JUEGO CREADO CON EXITO!")
+            return {...state}
+        }
         default: {
-            return{...state}
+            return {...state}
         }
     }
 }

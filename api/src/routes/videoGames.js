@@ -55,7 +55,7 @@ infoDelApi2 = async () => {
 // const url = `https://api.rawg.io/api/games?key=${ApiKey}`
 router.get("/", async (req, res) => {
   const info = await infoDelApi2()
-
+  const videogames = await Videogame.findAll()
   if (req.query.name) {
 
 
@@ -65,7 +65,16 @@ router.get("/", async (req, res) => {
     } catch (e) {
       res.status(404).send(e)
     }
-  } else {
+  }
+  else if(videogames.length > 0){
+
+    try{
+      res.json({...info, ...videogames})
+    }catch(e){
+      res.send(e)
+    }
+  }
+  else {
     try {
       res.json(info)
     } catch (e) {
@@ -77,9 +86,10 @@ router.post("/", async (req, res) => {
   // console.log(req.body)
 
   try {
+    if(req.body.name !== "" && req.body.description !== ""){
     const videogames = await Videogame.create(req.body)
     console.log(videogames)
-    res.send(videogames)
+    res.send(videogames)}
   }
   catch (e) {
     res.status(404).send(e)

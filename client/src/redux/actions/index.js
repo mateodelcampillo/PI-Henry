@@ -1,9 +1,13 @@
+import axios from "axios"
 export const GET_ALL_GAMES = "GET_ALL_GAMES"
 export const GET_SEARCH_GAMES = "GET_SEARCH_GAMES"
 export const GET_SORT_GAMES = "GET_SORT_GAMES"
 export const GET_GAME_DETAIL = "GET_GAME_DETAIL"
+export const GET_ALL_GENRES = "GET_ALL_GENRES"
+export const CREATE_GAME = "CREATE_GAME"
 
 export const getAllGames = () => {
+    
     return async function (dispatch) {
         return fetch(`http://localhost:3001/videogames`)
             .then(d => d.json())
@@ -49,3 +53,32 @@ export const getDetailGame = (id) => {
         }
     }
 }
+
+export const getAllGenres = () =>{
+    return function(dispatch){
+        return fetch(`http://localhost:3001/genre`)
+        .then(d => d.json())
+        .then( data => dispatch({
+            type: GET_ALL_GENRES,
+            payload: data
+        }))
+    }
+}
+
+export function createGame(game){
+    return function(dispatch){
+        return axios.post("http://localhost:3001/videogames",
+        {
+            name: game.name,
+            description: game.description,
+            platforms: game.platforms,
+            rating: game.rating,
+            image: game.image,
+            genres: game.genres,
+            released: game.released
+        })
+        .then(d => {dispatch({type: CREATE_GAME, payload: d.data})})
+        .catch((e) => {console.log(e)})
+    }
+}
+

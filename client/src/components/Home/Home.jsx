@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getAllGames, getSearchGames, getSortGames } from "../../redux/actions"
+import { getSearchGames, getSortGames } from "../../redux/actions"
 
 import GameCard from "../GameCard/GameCard"
 import { Pagination } from "./Pagination"
@@ -31,7 +31,7 @@ const Home = () => {
     /////////////         FILTRO DE ORDEN ALFABETICO         ///////////////
     const FilterAbc = (e) => {
         
-        setCopyGames(stateGames)
+        
         if (e.target.value === "A-Z") {
             function sort(x, y) {
                 if (x.name < y.name) { return -1; }
@@ -39,7 +39,7 @@ const Home = () => {
                 return 0;
             }
             
-            setOriginalCopy(stateGames)
+            
             const gamesSort = stateGames.sort(sort)
             dispatch(getSortGames(gamesSort))
             setUpdate("Orden A-Z")
@@ -56,10 +56,7 @@ const Home = () => {
             dispatch(getSortGames(gamesSort))
             setUpdate("Orden Z-A")
         }
-        // else if (e.target.value === "Orden Alfabetico:") {
-
-        //     dispatch(getAllGames())
-        // }
+        
     }
     /////////////         FILTRO DE RATING        ///////////////
 
@@ -71,7 +68,7 @@ const Home = () => {
                 return 0;
             }
             const gamesSort = stateGames.sort(sort)
-            setOriginalCopy(stateGames)
+            
             dispatch(getSortGames(gamesSort))
             setUpdate("ORDEN BEST RATED")
         }
@@ -81,7 +78,7 @@ const Home = () => {
                 if (x.rating > y.rating) { return 1; }
                 return 0;
             }
-            setOriginalCopy(stateGames)
+            
             const gamesSort = stateGames.sort(sort)
             
             dispatch(getSortGames(gamesSort))
@@ -92,9 +89,10 @@ const Home = () => {
 
         // }
     }
-
+    
     return (
         <>
+        {console.log(stateGames)}
             {/*       FORMULARIO DE BUSQUEDA       */}
             <form onSubmit={(e) => {
                 e.preventDefault()
@@ -105,9 +103,10 @@ const Home = () => {
                 <input name="game" value={game} onChange={handleOnChange}></input>
                 <button type="submit">Search</button>
             </form>
-            <button onClick={() => {
+            <button onClick={(e) => {
+                e.preventDefault()
                 setGame("")
-                dispatch(getSortGames(originalCopy))
+                dispatch(getSortGames(copyGames))
             }}>Clear</button>
             {/*        ORDEN ALFABETICO            */}
             <select onChange={FilterAbc}>
