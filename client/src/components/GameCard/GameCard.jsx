@@ -8,7 +8,8 @@ const GameCard = (props) => {
         <div>
         <Link to={`/videogame/${props.id}`}><h2>{props.name}</h2></Link>
         <h4>{props.rating}</h4>
-        {props.genres.map(g => <h4>{g}</h4>)}
+         {props.genres?.map(d => <span>{d.name? d.name: d}/</span>)}
+        
         <img src={props.image} alt={props.name}></img>
         </div>
     )

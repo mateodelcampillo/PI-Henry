@@ -1,6 +1,7 @@
 const axios = require('axios');
 const { Router } = require('express');
-const { Videogame } = require("../db")
+const { Videogame, Genre } = require("../db")
+
 const {
   ApiKey
 } = process.env;
@@ -43,7 +44,8 @@ infoDelApi2 = async () => {
       releaseDate: d.released,
       rating: d.rating,
       genres: d.genres.map(d=> d.name),
-      description: d.description
+      description: d.description,
+      platforms: d.platforms.map(d=> d.platform.name)
     }))
   }
 
@@ -55,7 +57,10 @@ infoDelApi2 = async () => {
 // const url = `https://api.rawg.io/api/games?key=${ApiKey}`
 router.get("/", async (req, res) => {
   const info = await infoDelApi2()
-  const videogames = await Videogame.findAll()
+  const videogames = await Videogame.findAll({
+    include: [{model: Genre, attributes: ['name'], through: {attributes: []}}]
+
+  })
   if (req.query.name) {
 
 
@@ -69,7 +74,7 @@ router.get("/", async (req, res) => {
   else if(videogames.length > 0){
 
     try{
-      res.json({...info, ...videogames})
+      res.json([...videogames, ...info])
     }catch(e){
       res.send(e)
     }
@@ -87,7 +92,15 @@ router.post("/", async (req, res) => {
 
   try {
     if(req.body.name !== "" && req.body.description !== ""){
+      let generos = await Genre.findAll({
+        where:{
+          name: req.body.genres
+        }
+      })
+      console.log(generos)
+      console.log("SIUUU",req.body.genres)
     const videogames = await Videogame.create(req.body)
+    await videogames.addGenres(generos)
     console.log(videogames)
     res.send(videogames)}
   }

@@ -22,7 +22,7 @@ const Home = () => {
     //  Current Posts
     const indexOfLastPost = currentPage * postsPerPage
     const indexOfFirstPost = indexOfLastPost - postsPerPage
-    const currentPosts = [...stateGames.slice(indexOfFirstPost, indexOfLastPost)]
+    const currentPosts = [...stateGames?.slice(indexOfFirstPost, indexOfLastPost)]
     /////////////         CAMBIAR DE PAGINA       ///////////////
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
     let handleOnChange = (e) => {
@@ -88,6 +88,10 @@ const Home = () => {
         //     dispatch(getSortGames(originalCopy))
 
         // }
+    }
+
+    const FilterPlatform = ()=>{
+        
     }
     
     return (
@@ -163,10 +167,10 @@ const Home = () => {
                     genres={e.genres}
                     description={e.description}
                     releaseDate={e.releaseDate}
-                    rating={e.rating} />)
+                    rating={e.rating} 
                     
 
-            }
+           />) }
 
             <Pagination postsPerPage={postsPerPage} paginate={paginate} totalPosts={stateSearchGames.length > 1 ? stateSearchGames.length : stateGames.length} />
 

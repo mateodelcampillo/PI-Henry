@@ -8,16 +8,19 @@ export default function GameDetail(props) {
     dispatch(getDetailGame(props.match.params?.id))
 },[])
   const gameDetail = useSelector(state => state.gameDetail)
+ 
     return (
    <>
    
+   
    <h1>{gameDetail.name}</h1>
    <br/>
-   <h3>{gameDetail.description_raw}</h3>
-   {gameDetail.genres?.map(d => <span>{d.name}</span>)}
+   <h3>{gameDetail.description}</h3>
+   {gameDetail.genres?.map(d => <span>{d.name? d.name: d} </span>)}
    <br/><span>{gameDetail.rating}</span>
-   <img src={gameDetail.background_image}></img><br />
+   <img src={gameDetail.image}></img><br /> 
 
+  
    </>
   )
 }

@@ -5,7 +5,7 @@ const initialState = {
     cienGames: [],
     searchGame: [],
     sortGames: [],
-    gameDetail: [],
+    gameDetail: {},
     allGenres: []
 }
 const rootReducer = (state = initialState, action) => {
