@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER
     },
     platforms: {
-      type: DataTypes.STRING
+      type: DataTypes.JSON
     },
     image: {
       type: DataTypes.STRING

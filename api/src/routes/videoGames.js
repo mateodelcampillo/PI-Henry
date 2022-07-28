@@ -105,7 +105,8 @@ router.post("/", async (req, res) => {
     res.send(videogames)}
   }
   catch (e) {
-    res.status(404).send(e)
+    console.log(e.message)
+    res.status(404).send(`Este es el error: ${e}`)
   }
 })
 module.exports = router

@@ -5,6 +5,7 @@ export const GET_SORT_GAMES = "GET_SORT_GAMES"
 export const GET_GAME_DETAIL = "GET_GAME_DETAIL"
 export const GET_ALL_GENRES = "GET_ALL_GENRES"
 export const CREATE_GAME = "CREATE_GAME"
+export const FILTER_GAMES = "FILTER_GAMES"
 
 export const getAllGames = () => {
     
@@ -82,3 +83,11 @@ export function createGame(game){
     }
 }
 
+export const gamesFilter = (games) => {
+    return {
+        type: FILTER_GAMES,
+        payload: games
+    }
+
+
+}
