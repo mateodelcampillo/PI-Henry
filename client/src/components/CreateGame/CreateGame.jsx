@@ -69,7 +69,7 @@ export default function CreateGame() {
       <h4>*Description:</h4>
       <input name="description" required onChange={handleChange} />
       <h4>*Released:</h4>
-      <input type="date" name="releaseDate" required onChange={handleChange} />
+      <input type="date" name="releaseDate" onChange={handleChange} />
       <h4>*Rating:</h4>
       <input type="number" name="rating" min="0" max="5" required onChange={handleChange} />
       <h4>*Genres:</h4>

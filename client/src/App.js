@@ -2,7 +2,6 @@ import './App.css';
 import React, { useEffect } from "react"
 import { Route } from "react-router-dom";
 import Home from "./components/Home/Home"
-import Nav from "./components/Nav/Nav"
 import { useDispatch } from 'react-redux';
 import { getAllGames, getAllGenres } from './redux/actions';
 
@@ -20,7 +19,7 @@ function App() {
     
   return (
     <>
-    <Nav/>
+    
     <Route exact path="/home" component={Home}/>
     <Route exact path="/videogame/:id" component={GameDetail}/>
     <Route exact path="/videogames/create" component={CreateGame}/>

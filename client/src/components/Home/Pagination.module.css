@@ -1,0 +1,29 @@
+.container{
+    display: flex;
+   justify-content: center; 
+   ;
+}
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    text-align: center;
+    list-style: none;
+    width: 6vw;
+    height: 6vh;
+    margin-bottom: 25px;
+    background-color: white;
+    color: white;
+    background-color: black;
+    box-shadow:  0 2px 13px #11590F;
+    border-radius: 10%;
+    margin: 5px;
+}
+.button:hover{
+    box-shadow:  0 2px 13px blueviolet;
+    transition: 500ms;
+    border: 3px blueviolet;
+    background-color: blueviolet;
+
+}

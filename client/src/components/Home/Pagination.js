@@ -1,19 +1,22 @@
 import React from 'react'
-
+import estilo from "./Pagination.module.css"
 export const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
     const pageNumbers = []
     for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
         pageNumbers.push(i)
     }
     return (
-        <div>
+        <div className={estilo.container}>
             {pageNumbers.map(number => (
-               <li key={number}>
-                  <span><a onClick={(e) =>{
+                <span key={number}>
+
+                    <a className={estilo.button} onClick={(e) => {
                         e.preventDefault()
-                        paginate(number)}} href='!#'>{number}</a></span>
-                       
-                </li> 
+                        paginate(number)
+                    }} href='!#'>{number}</a>
+
+
+                </span>
             ))}
         </div>
     )
