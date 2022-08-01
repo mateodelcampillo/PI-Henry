@@ -137,54 +137,71 @@ const Home = () => {
         setUpdate("ORDEN PF")
     }
 
+    /////////////         SEARCH FUNCTION        ///////////////
+
+    const searchFunction = (e) => {
+        e.preventDefault()
+        setOriginalCopy(stateGames)
+        dispatch(getSearchGames(game))
+        setGame("")
+    }
+
+    /////////////         RESET DETAIL FUNCTION        ///////////////
+    
+    const resetDetail = (e)=>{
+        e.preventDefault()
+        dispatch(getDetailGame())
+      }
     return (
         <div className={estilo.body}>
 
             <div className={estilo.nav}>
                 <img className={estilo.logo} src={logo} ></img>
                 <div className={estilo.navButton}>
-                    <a className={estilo.a} onClick={(e) => {
-                        e.preventDefault()
-                        dispatch(getDetailGame())
-                    }}><Link to="/home"  className={estilo.link}>Home </Link></a>
+                    
+                        <a className={estilo.a} href="http://localhost:3000/home" onClick={(e) => {
+                            e.preventDefault()
+                            dispatch(getDetailGame())
+                        }}><Link className={estilo.aLink} to="/home">
+                            Home
+                      </Link>  </a>
+                    
 
-                    <a className={estilo.a} onClick={(e) => {
-                        e.preventDefault()
-                        dispatch(getDetailGame())
-                    }}><Link to="/videogames/create" className={estilo.link}>Create Game </Link></a>
+                    
+                        <a className={estilo.a} href="/videogames/create" onClick={(e) => {
+                            e.preventDefault()
+                            dispatch(getDetailGame())
+                        }}><Link className={estilo.aLink} to="/videogames/create">
+                            Create Game
+                       </Link> </a>
+                    
                 </div>
-                {console.log(stateGames)}
+
 
 
 
                 {/*       FORMULARIO DE BUSQUEDA       */}
 
 
+                <div className={estilo.searchBar}>
+                    <form onSubmit={searchFunction}>
+                        <input className={estilo.inputSearch} name="game" value={game} onChange={handleOnChange}></input>
+                        <img className={estilo.searchIcon} onClick={searchFunction} src="https://icon-library.com/images/search-icon-white-png/search-icon-white-png-10.jpg" alt="SearchIcon" />
 
-                <form onSubmit={(e) => {
-                    e.preventDefault()
-                    setOriginalCopy(stateGames)
-                    dispatch(getSearchGames(game))
-                    setGame("")
-
-
-                }}>
-                    <input className={estilo.inputSearch} name="game" value={game} onChange={handleOnChange}></input>
-                    <button type="submit">Search</button>
-                </form>
-                <button onClick={(e) => {
+                    </form></div>
+                <a className={estilo.resetButton} onClick={(e) => {
                     e.preventDefault()
                     setGame("")
                     dispatch(getAllGames())
                     setReset("Filtrar por Genero:")
-                }}>Reset</button>
+                }}>Reset</a>
 
 
                 {/*        ORDEN ALFABETICO            */}
 
 
 
-                <select onChange={FilterAbc}>
+                <select onChange={FilterAbc} className={estilo.abcFilter}>
                     <option>Orden Alfabetico:</option>
                     <option>A-Z</option>
                     <option>Z-A</option>
@@ -196,7 +213,7 @@ const Home = () => {
 
 
 
-                <select onChange={FilterRating}>
+                <select className={estilo.ratingFilter} onChange={FilterRating}>
                     <option>Orden por Rating:</option>
                     <option>Best Rated</option>
                     <option>Worst Rated</option>
@@ -208,7 +225,7 @@ const Home = () => {
 
 
 
-                <select onChange={FilterPlatform} value={reset}>
+                <select className={estilo.genreFilter} onChange={FilterPlatform} value={reset}>
                     <option value={reset}>Filtrar por Genero:</option>
                     <option value="Action">Action</option>
                     <option value="Indie">Indie</option>
@@ -231,12 +248,15 @@ const Home = () => {
                     <option value="Card">Card</option>
                 </select>
             </div>
+            <div>
+                <h1 className={estilo.search}>Search Results</h1>
+            </div>
 
             {Object.keys(stateSearchGames).length > 0 ?
                 <div className={estilo.wrapper}>
                     {currentPosts?.map(e =>
 
-                        <GameCard
+                        <GameCard className={estilo.prueba}
                             key={e.id}
                             id={e.id}
                             name={e.name}

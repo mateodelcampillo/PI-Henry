@@ -44,7 +44,8 @@ router.get("/videogame/:id", async(req,res)=>{
             description: ress.data.description_raw,
             platforms: ress.data.platforms.map(d => d.platform.name),
             genres: ress.data.genres.map(d=>d.name),
-            rating_top: ress.data.rating_top
+            rating_top: ress.data.rating_top,
+            extraImage: ress.data.background_image_additional
         }
         
         res.json(apiGame)}

@@ -76,7 +76,7 @@ export function createGame(game){
             rating: game.rating,
             image: game.image,
             genres: game.genres,
-            released: game.released
+            releaseDate: game.releaseDate
         })
         .then(d => {dispatch({type: CREATE_GAME, payload: d.data})})
         .catch((e) => {console.log(e)})
