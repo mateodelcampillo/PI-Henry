@@ -1,33 +1,97 @@
-.detailContainer{
+.detailContainer {
     position: absolute;
-    /* box-sizing: border-box; */
     display: flex;
     flex-direction: row;
-   width: 75vw;
-   left: 12vw;
-   border: 1px solid black;
+    width: 80vw;
+    left: 12vw;
+    border-radius: 8%;
 }
-.img{
-  display: flex;
-  align-items: center;
+
+.img {
+    display: flex;
+    align-items: center;
     width: 30vw;
     height: 40vh;
     border-radius: 8%;
-   
-    
+
+
 }
 
-.title{
-   padding-left: 12vw;
-    /* clear: right;
-    text-align: center;
-    background-color: black;
+.title {
+    padding-left: 12vw;
     color: white;
-    width: 100%;
-    height: 30vh; */
-    
+    text-shadow: 3px 3px 3px blueviolet;
+
+
 }
-.textDiv{
+
+.textDiv {
     display: flex;
     flex-direction: column;
+
+    color: white;
+    text-shadow: 3px 3px 3px blueviolet;
+    font-size: small;
+
+}
+
+.backgroundImage {
+    background-repeat: no-repeat;
+    background-image: url(../../img/backgroundDetail2.jpg);
+    background-size: 100%;
+    height: 100vh;
+
+
+}
+
+.detailInfo {
+
+    color: white;
+    display: flex;
+    margin: 0;
+    flex-direction: column;
+
+
+}
+
+.border {
+    border: 5px solid blueviolet;
+}
+
+.infoContent {
+    color: white;
+    display: flex;
+}
+
+.imageDetail {
+    margin: 15px;
+}
+
+.a {
+
+    margin: 40px;
+    border: 2 solid white;
+    color: black;
+    border-radius: 10%;
+    text-decoration: none;
+
+    background-color: white;
+
+
+
+
+}
+
+.aLink {
+    color: black;
+}
+
+.a:hover {
+    color: white;
+    background-color: blueviolet;
+    border: 2 solid blueviolet;
+    box-shadow: 0px 0px 2px white;
+    transition: 700ms;
+
+
 }

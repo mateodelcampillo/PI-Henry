@@ -9,7 +9,7 @@ export const FILTER_GAMES = "FILTER_GAMES"
 
 export const getAllGames = () => {
     
-    return async function (dispatch) {
+    return function (dispatch) {
         return fetch(`http://localhost:3001/videogames`)
             .then(d => d.json())
             .then(data => dispatch({ type: GET_ALL_GAMES, payload: data }))
@@ -18,11 +18,12 @@ export const getAllGames = () => {
 
 export const getSearchGames = (game) => {
 
-    return async function (dispatch) {
+    return function (dispatch) {
 
         return fetch(`http://localhost:3001/videogames?name=${game}`)
             .then(d => d.json())
             .then(data => dispatch({ type: GET_SEARCH_GAMES, payload: data }))
+            .catch((e)=> alert("No se a encontrado ningun juego"))
     }
 }
 
@@ -37,7 +38,7 @@ export const getSortGames = (games) => {
 
 export const getDetailGame = (id) => {
     if (id) {
-        return async function (dispatch) {
+        return function (dispatch) {
             return fetch(`http://localhost:3001/videogame/${id}`)
                 .then(d => d.json())
                 .then(data => dispatch({
@@ -68,18 +69,37 @@ export const getAllGenres = () =>{
 
 export function createGame(game){
     return function(dispatch){
-        return axios.post("http://localhost:3001/videogames",
-        {
-            name: game.name,
-            description: game.description,
-            platforms: game.platforms,
-            rating: game.rating,
-            image: game.image,
-            genres: game.genres,
-            releaseDate: game.releaseDate
+        // return axios.post("http://localhost:3001/videogames",
+        // {
+        //     name: game.name,
+        //     description: game.description,
+        //     platforms: game.platforms,
+        //     rating: game.rating,
+        //     image: game.image,
+        //     genres: game.genres,
+        //     releaseDate: game.releaseDate
+        // })
+        // .then(d => {dispatch({type: CREATE_GAME, payload: d.data})})
+        // .catch((e) => {console.log(e)})
+        fetch("http://localhost:3001/videogames", {
+            method: "POST" ,
+            headers: {
+                "Content-Type": "application/json",
+
+            },
+            body: JSON.stringify({
+                name: game.name,
+                description: game.description,
+                platforms: game.platforms,
+                rating: game.rating,
+                image: game.image,
+                genres: game.genres,
+                releaseDate: game.releaseDate
+            })
         })
-        .then(d => {dispatch({type: CREATE_GAME, payload: d.data})})
-        .catch((e) => {console.log(e)})
+        .then(d => d.json())
+        .then(r => {dispatch({type: CREATE_GAME, payload: r})})
+        .catch((e)=> {console.log(e)})
     }
 }
 

@@ -75,6 +75,7 @@ const Home = () => {
 
 
             const gamesSort = stateGames.sort(sort)
+            setCurrentPage(1)
             dispatch(getSortGames(gamesSort))
             setUpdate("Orden A-Z")
         }
@@ -87,6 +88,7 @@ const Home = () => {
 
 
             const gamesSort = stateGames.sort(sort)
+            setCurrentPage(1)
             dispatch(getSortGames(gamesSort))
             setUpdate("Orden Z-A")
         }
@@ -108,7 +110,7 @@ const Home = () => {
                 return 0;
             }
             const gamesSort = stateGames.sort(sort)
-
+            setCurrentPage(1)
             dispatch(getSortGames(gamesSort))
             setUpdate("ORDEN BEST RATED")
         }
@@ -120,7 +122,7 @@ const Home = () => {
             }
 
             const gamesSort = stateGames.sort(sort)
-
+            setCurrentPage(1)
             dispatch(getSortGames(gamesSort))
             setUpdate("ORDEN WORST RATED")
         }
@@ -132,7 +134,7 @@ const Home = () => {
 
         const gamesPf = stateGames.filter(d => d.genres.includes(e.target.value))
         console.log("Siuu", gamesPf)
-
+        setCurrentPage(1)
         dispatch(gamesFilter(gamesPf))
         setUpdate("ORDEN PF")
     }
@@ -142,39 +144,40 @@ const Home = () => {
     const searchFunction = (e) => {
         e.preventDefault()
         setOriginalCopy(stateGames)
+        setCurrentPage(1)
         dispatch(getSearchGames(game))
         setGame("")
     }
 
     /////////////         RESET DETAIL FUNCTION        ///////////////
-    
-    const resetDetail = (e)=>{
+
+    const resetDetail = (e) => {
         e.preventDefault()
         dispatch(getDetailGame())
-      }
+    }
     return (
         <div className={estilo.body}>
 
             <div className={estilo.nav}>
                 <img className={estilo.logo} src={logo} ></img>
                 <div className={estilo.navButton}>
-                    
-                        <a className={estilo.a} href="http://localhost:3000/home" onClick={(e) => {
-                            e.preventDefault()
-                            dispatch(getDetailGame())
-                        }}><Link className={estilo.aLink} to="/home">
-                            Home
-                      </Link>  </a>
-                    
 
-                    
-                        <a className={estilo.a} href="/videogames/create" onClick={(e) => {
-                            e.preventDefault()
-                            dispatch(getDetailGame())
-                        }}><Link className={estilo.aLink} to="/videogames/create">
+                    <a className={estilo.a} href="http://localhost:3000/home" onClick={(e) => {
+                        e.preventDefault()
+                        dispatch(getDetailGame())
+                    }}><Link className={estilo.aLink} to="/home">
+                            Home
+                        </Link>  </a>
+
+
+
+                    <a className={estilo.a} href="/videogames/create" onClick={(e) => {
+                        e.preventDefault()
+                        dispatch(getDetailGame())
+                    }}><Link className={estilo.aLink} to="/videogames/create">
                             Create Game
-                       </Link> </a>
-                    
+                        </Link> </a>
+
                 </div>
 
 
@@ -252,34 +255,40 @@ const Home = () => {
                 <h1 className={estilo.search}>Search Results</h1>
             </div>
 
+
+
             {Object.keys(stateSearchGames).length > 0 ?
-                <div className={estilo.wrapper}>
-                    {currentPosts?.map(e =>
+                currentPosts.length == 0 ? <h1>LOADING</h1> :
+                    <div className={estilo.wrapper}>
 
-                        <GameCard className={estilo.prueba}
-                            key={e.id}
-                            id={e.id}
-                            name={e.name}
-                            image={e.image}
-                            genres={e.genres}
-                            description={e.description}
-                            releaseDate={e.releaseDate}
-                            rating={e.rating} />
-                    )} </div> :
-                <div className={estilo.wrapper}>
-                    {currentPosts?.map(e =>
+                        {currentPosts?.map(e =>
 
-                        <GameCard
-                            key={e.id}
-                            id={e.id}
-                            name={e.name}
-                            image={e.image}
-                            genres={e.genres}
-                            description={e.description}
-                            releaseDate={e.releaseDate}
-                            rating={e.rating} />
-                    )}
-                </div>
+                            <GameCard className={estilo.prueba}
+                                key={e.id}
+                                id={e.id}
+                                name={e.name}
+                                image={e.image}
+                                genres={e.genres}
+                                description={e.description}
+                                releaseDate={e.releaseDate}
+                                rating={e.rating} />
+                        )} </div> :
+                currentPosts.length == 0 ? <img src="https://s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2019/08/06082254/El-festejo-de-Cristiano-Ronaldo-SF.jpg"></img> :
+
+                    <div className={estilo.wrapper}>
+                        {currentPosts?.map(e =>
+
+                            <GameCard
+                                key={e.id}
+                                id={e.id}
+                                name={e.name}
+                                image={e.image}
+                                genres={e.genres}
+                                description={e.description}
+                                releaseDate={e.releaseDate}
+                                rating={e.rating} />
+                        )}
+                    </div>
             }
 
             <Pagination postsPerPage={postsPerPage} paginate={paginate} totalPosts={stateSearchGames.length > 1 ? stateSearchGames.length : stateGames.length} />

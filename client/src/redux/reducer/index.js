@@ -46,7 +46,7 @@ const rootReducer = (state = initialState, action) => {
             }
         }
         case CREATE_GAME: {
-            alert("JUEGO CREADO CON EXITO!")
+            alert("GAME CREATED SUCCESSFULLY")
             return {...state}
         }
         case FILTER_GAMES:{
