@@ -1,7 +1,9 @@
 
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createGame, getAllGames } from '../../redux/actions'
+import { createGame, getAllGames, getDetailGame } from '../../redux/actions'
+import estilo from "../CreateGame/CreateGame.module.css"
+import { Link } from 'react-router-dom'
 
 export default function CreateGame() {
   const dispatch = useDispatch()
@@ -50,32 +52,47 @@ export default function CreateGame() {
         [e.target.name]: e.target.value
       })
     }
+    
   }
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(createGame(gameCreated))
   }
+  
   const stateGenres = useSelector(state => state.allGenres)
+  const resetDetail = (e) => {
+    e.preventDefault()
+    dispatch(getDetailGame())
+  }
   return (<>
+<div className={estilo.backgroundImage}>
 
-    <h1>Create your game</h1>
-    <form onSubmit={(e) => {
+<a className={estilo.a} onClick={resetDetail}><Link className={estilo.aLink} to="/home">
+        Home
+      </Link> </a>
+    <h1 className={estilo.titleColor}>Create your game</h1>
+
+    <form className={estilo.divContainer} onSubmit={(e) => {
       e.preventDefault()
       dispatch(createGame(gameCreated))
       dispatch(getAllGames())
     }}>
+
       <h4>*Name:</h4>
-      <input name="name" required onChange={handleChange} />
+      <input className={estilo.input} name="name" required onChange={handleChange} />
       <h4>*Description:</h4>
-      <input name="description" required onChange={handleChange} />
+      <input className={estilo.input} name="description" required onChange={handleChange} />
       <h4>*Released:</h4>
-      <input type="date" name="releaseDate" onChange={handleChange} />
+      <input className={estilo.input} type="date" name="releaseDate" onChange={handleChange} />
       <h4>*Rating:</h4>
-      <input type="number" name="rating" min="0" max="5" required onChange={handleChange} />
+      <input className={estilo.input} type="number" name="rating" min="0" max="5" required onChange={handleChange} />
       <h4>*Genres:</h4>
-      {stateGenres?.map((g, index) => <label name="genres" key={index}><input type="checkbox" name='genres' onClick={handleChange} value={g.name} />{g.name}</label>)}
+      <div className={estilo.divLabel}>
+      {stateGenres?.map((g, index) => <label name="genres" key={index}><input type="checkbox" name='genres' onClick={handleChange} value={g.name} />{g.name}</label>)}</div>
       <h4>*Platforms:</h4>
-      <label name="platforms" required onChange={handleChange}>
+      <div className={estilo.divLabel}>
+
+      <label  name="platforms" required onChange={handleChange}>
         <input type="checkbox" name='platforms' onClick={handleChange} value="Linux" />
         Linux
       </label>
@@ -166,7 +183,7 @@ export default function CreateGame() {
         <input type="checkbox" name='platforms' onClick={handleChange} value="Dreamcast" />
         Dreamcast
       </label>
-
+      </div>
 
 
 
@@ -174,9 +191,9 @@ export default function CreateGame() {
 
 
       <h4>Image:</h4>
-      <input name='image' onChange={handleChange} />
-      <input type="submit" value="Enviar" />
-    </form>
+      <input className={estilo.input} name='image' onChange={handleChange} />
+      <input className={estilo.button} type="submit" value="Enviar" />
+    </form></div>
   </>
   )
 }

@@ -30,7 +30,7 @@ const Home = () => {
 
 
     const [game, setGame] = useState([])
-    const [copyGames, setCopyGames] = useState()
+    
     const [originalCopy, setOriginalCopy] = useState()
     const [sortGame, setUpdate] = useState()
     const [currentPage, setCurrentPage] = useState(1)
@@ -39,7 +39,7 @@ const Home = () => {
 
 
 
-    //  Current Posts
+    ////////////   CARDS ACTUALES ///////////
 
 
 
@@ -54,6 +54,11 @@ const Home = () => {
 
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
+
+
+    /////////////         HandleChange       ///////////////
+
+
     let handleOnChange = (e) => {
         setGame(e.target.value)
     }
@@ -68,8 +73,8 @@ const Home = () => {
     const FilterAbc = (e) => {
         if (e.target.value === "A-Z") {
             function sort(x, y) {
-                if (x.name < y.name) { return -1; }
-                if (x.name > y.name) { return 1; }
+                if (x.name.toLowerCase() < y.name.toLowerCase()) { return -1; }
+                if (x.name.toLowerCase() > y.name.toLowerCase()) { return 1; }
                 return 0;
             }
 
@@ -81,8 +86,8 @@ const Home = () => {
         }
         else if (e.target.value === "Z-A") {
             function sort(x, y) {
-                if (x.name < y.name) { return 1; }
-                if (x.name > y.name) { return -1; }
+                if (x.name.toLowerCase() < y.name.toLowerCase()) { return 1; }
+                if (x.name.toLowerCase() > y.name.toLowerCase()) { return -1; }
                 return 0;
             }
 
@@ -128,14 +133,19 @@ const Home = () => {
         }
 
     }
+    /////////////         FILTRO DE GENERO        ///////////////
 
-    const FilterPlatform = (e) => {
-        console.log("Siuu", e.target.value)
-
-        const gamesPf = stateGames.filter(d => d.genres.includes(e.target.value))
-        console.log("Siuu", gamesPf)
+    const FilterGenre = (e) => {
+        const gamesGenre = stateGames.filter(d => d.genres.includes(e.target.value))
+        const genresCreated = stateGames.filter(d => d.genres.name ? d.genres.name.includes(e.target.value)  : d.vacio)
+        if(genresCreated.length > 0){
+            gamesGenre = [...gamesGenre, ...genresCreated]
+        }
+        if(gamesGenre.length === 0){
+            alert("No hay ninguna coincidencia")
+        }
         setCurrentPage(1)
-        dispatch(gamesFilter(gamesPf))
+        dispatch(gamesFilter(gamesGenre))
         setUpdate("ORDEN PF")
     }
 
@@ -151,10 +161,7 @@ const Home = () => {
 
     /////////////         RESET DETAIL FUNCTION        ///////////////
 
-    const resetDetail = (e) => {
-        e.preventDefault()
-        dispatch(getDetailGame())
-    }
+   
     return (
         <div className={estilo.body}>
 
@@ -228,7 +235,7 @@ const Home = () => {
 
 
 
-                <select className={estilo.genreFilter} onChange={FilterPlatform} value={reset}>
+                <select className={estilo.genreFilter} onChange={FilterGenre} value={reset}>
                     <option value={reset}>Filtrar por Genero:</option>
                     <option value="Action">Action</option>
                     <option value="Indie">Indie</option>
@@ -258,7 +265,7 @@ const Home = () => {
 
 
             {Object.keys(stateSearchGames).length > 0 ?
-                currentPosts.length == 0 ? <h1>LOADING</h1> :
+                currentPosts.length == 0 ? <img src="https://tenor.com/es/ver/loading-bar-waiting-load-cyan-blue-gif-13956215" alt="loading..." /> :
                     <div className={estilo.wrapper}>
 
                         {currentPosts?.map(e =>
@@ -273,7 +280,7 @@ const Home = () => {
                                 releaseDate={e.releaseDate}
                                 rating={e.rating} />
                         )} </div> :
-                currentPosts.length == 0 ? <img src="https://s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2019/08/06082254/El-festejo-de-Cristiano-Ronaldo-SF.jpg"></img> :
+                currentPosts.length == 0 ? <img className={estilo.loadingGif} src="https://tradinglatam.com/wp-content/uploads/2019/04/loading-gif-png-4.gif"></img> :
 
                     <div className={estilo.wrapper}>
                         {currentPosts?.map(e =>

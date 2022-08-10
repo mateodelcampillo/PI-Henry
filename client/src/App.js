@@ -7,6 +7,7 @@ import { getAllGames, getAllGenres } from './redux/actions';
 
 import GameDetail from "./components/GameDetail/GameDetail"
 import CreateGame from "./components/CreateGame/CreateGame"
+import Landing from "./components/Landing/Landing.js"
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
     
   return (
     <>
-    
+    <Route exact path="/" component={Landing}/>
     <Route exact path="/home" component={Home}/>
     <Route exact path="/videogame/:id" component={GameDetail}/>
     <Route exact path="/videogames/create" component={CreateGame}/>

@@ -14,7 +14,7 @@
 .nav {
     display: flex;
     flex-direction: column;
-    background-color: rgb(138, 43, 227, .8);
+    background-color: rgb(138, 43, 227);
 
 
 
@@ -175,7 +175,14 @@
     display: flex;
     justify-content: center;
 }
-
+.loadingGif{
+    position: relative;
+    /* width: 70%;
+    padding-left: 25vw; */
+    left: 32vw;
+    width: 35%;
+    height: 80vh;
+}
 @media(min-width: 1380px){
     .wrapper {
         

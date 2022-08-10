@@ -97,8 +97,8 @@ router.post("/", async (req, res) => {
           name: req.body.genres
         }
       })
-      console.log(generos)
-      console.log("SIUUU",req.body.genres)
+      // console.log(generos)
+      // console.log("SIUUU",req.body.genres)
     const videogames = await Videogame.create(req.body)
     await videogames.addGenres(generos)
     console.log(videogames)

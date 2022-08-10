@@ -34,7 +34,7 @@ export default function GameDetail(props) {
           <img className={estilo.img} src={gameDetail.image}></img>
 
 
-          <div className={estilo.infoContent}><><p>Platforms:{gameDetail.platforms?.map(d => `  ${d}/`)}</p></></div>
+          <div className={estilo.infoContent}><><p>Platforms:{gameDetail.platforms?.map(d => `  ${d} /`)}</p></></div>
           <p className={estilo.detailInfo} >Genres:</p>
           <div className={estilo.infoContent}>{gameDetail.genres?.map(d => <p>{d.name ? d.name : d} / </p>)}</div>
           <p className={estilo.infoContent} >Release date: {gameDetail.releaseDate}</p>
