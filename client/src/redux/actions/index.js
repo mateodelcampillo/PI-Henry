@@ -13,6 +13,8 @@ export const getAllGames = () => {
         return axios.get(`/videogames`)
             
             .then(data => dispatch({ type: GET_ALL_GAMES, payload: data.data }))
+            .catch((e)=> alert(e))
+
     }
 }
 
@@ -45,6 +47,8 @@ export const getDetailGame = (id) => {
                     type: GET_GAME_DETAIL,
                     payload: data.data
                 }))
+            .catch((e)=> alert(e))
+
 
         }
     }
@@ -64,6 +68,8 @@ export const getAllGenres = () =>{
             type: GET_ALL_GENRES,
             payload: data.data
         }))
+        .catch((e)=> alert(e))
+
     }
 }
 
