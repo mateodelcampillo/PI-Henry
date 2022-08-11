@@ -9,7 +9,7 @@ const router = Router();
 
 infoDelApiSearch = async (name) => {
 const games = []
-  const res = await axios.get(`https://api.rawg.io/api/games?key=${ApiKey}&search=${name}`)
+  const res = await axios.get(`http://api.rawg.io/api/games?key=${ApiKey}&search=${name}`)
   const data = res.data.results
   if (data.length == 0) { throw "No se encontró ningun juego" }
   else {
@@ -34,7 +34,7 @@ infoDelApi2 = async () => {
 
   for (let i = 1; i < 6; i++) {
 
-    let url = `https://api.rawg.io/api/games?key=${ApiKey}&page=${i}`
+    let url = `http://api.rawg.io/api/games?key=${ApiKey}&page=${i}`
     const res = await axios.get(url)
     const data = res.data.results
     data.map(d => games.push({

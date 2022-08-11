@@ -4,7 +4,7 @@ const axios = require('axios');
 const {
     ApiKey
   } = process.env;
-    const url = `https://api.rawg.io/api/genres?key=${ApiKey}`
+    const url = `http://api.rawg.io/api/genres?key=${ApiKey}`
 
 const router = Router();
 router.get("/", async(req,res)=>{

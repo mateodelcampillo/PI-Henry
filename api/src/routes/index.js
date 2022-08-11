@@ -34,7 +34,7 @@ router.get("/videogame/:id", async(req,res)=>{
     }
     else
     {try{
-        const ress = await axios.get(`https://api.rawg.io/api/games/${req.params.id}?key=01f6bbea3ed5415587f9d9a469a2d3f7`)
+        const ress = await axios.get(`http://api.rawg.io/api/games/${req.params.id}?key=01f6bbea3ed5415587f9d9a469a2d3f7`)
         const apiGame = { 
             id: ress.data.id,
             name: ress.data.name,
