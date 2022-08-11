@@ -8,24 +8,35 @@ export const CREATE_GAME = "CREATE_GAME"
 export const FILTER_GAMES = "FILTER_GAMES"
 
 export const getAllGames = () => {
-    
-    return function (dispatch) {
-        return axios.get(`/videogames`)
-            
-            .then(data => dispatch({ type: GET_ALL_GAMES, payload: data.data }))
-            .catch((e)=> alert(e))
+
+    return async function (dispatch) {
+        try {
+            const response = await axios.get(`/videogames`)
+            if (response?.data) {
+                dispatch({ type: GET_ALL_GAMES, payload: response.data })
+            }
+        } catch (error) {
+            alert(error)
+        }
+
+
+
 
     }
 }
 
 export const getSearchGames = (game) => {
 
-    return function (dispatch) {
+    return async function (dispatch) {
+        try {
+            const response = await axios.get(`/videogames?name=${game}`)
+            if (response?.data) { dispatch({ type: GET_SEARCH_GAMES, payload: response.data }) }
+        } catch (error) {
+            alert(error)
+        }
 
-        return axios.get(`/videogames?name=${game}`)
-           
-            .then(data => dispatch({ type: GET_SEARCH_GAMES, payload: data.data }))
-            .catch((e)=> alert("No se a encontrado ningun juego"))
+
+
     }
 }
 
@@ -40,14 +51,21 @@ export const getSortGames = (games) => {
 
 export const getDetailGame = (id) => {
     if (id) {
-        return function (dispatch) {
-            return axios.get(`/videogame/${id}`)
-                
-                .then(data => dispatch({
-                    type: GET_GAME_DETAIL,
-                    payload: data.data
-                }))
-            .catch((e)=> alert(e))
+        return async function (dispatch) {
+            try {
+                const response = await axios.get(`/videogame/${id}`)
+                if (response?.data) {
+                    dispatch({
+                        type: GET_GAME_DETAIL,
+                        payload: response.data
+                    })
+                }
+            } catch (error) {
+                alert(error)
+            }
+
+
+
 
 
         }
@@ -60,24 +78,29 @@ export const getDetailGame = (id) => {
     }
 }
 
-export const getAllGenres = () =>{
-    return function(dispatch){
-        return axios.get(`/genre`)
-       
-        .then( data => dispatch({
-            type: GET_ALL_GENRES,
-            payload: data.data
-        }))
-        .catch((e)=> alert(e))
+export const getAllGenres = () => {
+    return async function (dispatch) {
+        const response = await axios.get(`/genre`)
+        try {
+            if (response?.data) {
+                dispatch({
+                    type: GET_ALL_GENRES,
+                    payload: response.data
+                })
+            }
+        } catch (error) {
+            alert(error)
+        }
+
+
+
 
     }
 }
 
-export function createGame(game){
-    return function(dispatch){
-        return axios.post("/videogames",
-        
-             
+export function createGame(game) {
+    return async function (dispatch) {
+        const response = await axios.post("/videogames",
         game.image == "" ? {
                 name: game.name,
                 description: game.description,
@@ -85,7 +108,7 @@ export function createGame(game){
                 rating: game.rating,
                 genres: game.genres,
                 releaseDate: game.releaseDate
-            }:{
+            } : {
                 name: game.name,
                 description: game.description,
                 platforms: game.platforms,
@@ -95,8 +118,14 @@ export function createGame(game){
                 releaseDate: game.releaseDate
             }
         )
-        .then(d => {dispatch({type: CREATE_GAME, payload: d.data})})
-        .catch((e) => {console.log(e)})
+        try {
+           if(response?.data){dispatch({ type: CREATE_GAME, payload: response.data })} 
+        } catch (error) {
+            alert(error)
+        }
+        
+            
+            
         // fetch("/videogames", {
         //     method: "POST" ,
         //     headers: {
